@@ -39,6 +39,21 @@ const getEvents = async (req, res, next) => {
   }
 };
 
+const getEventsById = async (req, res, next) => {
+  try {
+    const { eventId } = req.params;
+    const eventFound = await Event.findById(eventId);
+    if (!eventFound) {
+      res.status(404).send({ message: "No event found" });
+      return;
+    }
+    res.send(eventFound);
+  } catch (error) {
+    console.error("Error getting event: ", error);
+    res.status(500).send({ message: "Error getting event" });
+  }
+};
+
 const createEvent = async (req, res, next) => {
   try {
     const { name, date, availableSeats } = req.body;
@@ -69,4 +84,4 @@ const createEvent = async (req, res, next) => {
   }
 };
 
-module.exports = { getEvents, createEvent };
+module.exports = { getEvents, getEventsById, createEvent };

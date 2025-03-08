@@ -4,6 +4,7 @@ const Event = require("../model/eventModel");
 const createTicket = async (req, res, next) => {
   try {
     const { userId, eventId } = req.body;
+    console.log("body", req.body);
     const event = await Event.findById(eventId);
     if (!event) {
       res.status(404).send({ message: "Event not found" });
