@@ -1,11 +1,37 @@
 const Event = require("../model/eventModel");
 
 
-const getEvents = async () => {
+const getEvents = async (req, res, next) => {
+  /* return example: { 
+“currentPage”: 1, 
+“pageSize”: 10, 
+“totalPages”: 3, 
+“events”: [ 
+{ 
+“eventId”: 1, 
+“name”: “Lantern rite” 
+“date”: “2025-03-08” 
+“availableSeats”: 10 
+} 
+]  
+} */
   try {
     const { page, pageSize } = req.query;
     const events = await Event.find();
-    res.send(events);
+    const eventsFiltered = events.filter(
+      (event) => new Date(event.date) > new Date()
+    );
+    const eventsSorted = eventsFiltered.sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      if (dateA < dateB) {
+        return -1;
+      }
+      if (dateA > dateB) {
+        return 1;
+      }
+    });
+    res.send(eventsSorted);
   } catch (error) {
     console.error("Error getting events: ", error);
     res.status(500).send({ message: "Error getting events" });
@@ -29,11 +55,17 @@ const createEvent = async (req, res, next) => {
     }
     const event = { name, date: dateString, availableSeats };
     const eventCreated = await new Event(event).save();
-    res.status(201).send(eventCreated);
+    const eventFormatted = {
+      eventId: eventCreated._id,
+      name: eventCreated.name,
+      date: eventCreated.date,
+      availableSeats: eventCreated.availableSeats,
+    };
+    res.status(201).send(eventFormatted);
   } catch (error) {
     console.error("Error creating event: ", error);
     res.status(500).send({ message: "Error creating event" });
   }
 };
 
-module.exports = { createEvent };
+module.exports = { getEvents, createEvent };
