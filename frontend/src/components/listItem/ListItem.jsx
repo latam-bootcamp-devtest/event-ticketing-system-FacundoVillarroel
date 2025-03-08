@@ -23,7 +23,7 @@ const ListItem = ({ event }) => {
       />
       <DetailsContainer>
         <Text>Name: {event.name}</Text>
-        <Text>Date: {event.date}</Text>
+        <Text>Date: {new Date(event.date).toLocaleString()}</Text>
         <Text>Price: ${event.ticketPrice}</Text>
       </DetailsContainer>
     </Container>

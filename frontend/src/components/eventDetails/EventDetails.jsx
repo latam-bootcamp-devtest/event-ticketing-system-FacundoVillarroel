@@ -21,7 +21,7 @@ const EventDetails = ({ event }) => {
       <DetailsContainer>
         <h4>Event Details</h4>
         <Text>Event: {event.name}</Text>
-        <Text>Date: {event.date}</Text>
+        <Text>Date: {new Date(event.date).toLocaleString()}</Text>
         <Text>Location: {event.location}</Text>
         <Text>Price: ${event.price || 10}</Text>
         <Text>Available seats: ${event.availableSeats}</Text>
@@ -30,7 +30,7 @@ const EventDetails = ({ event }) => {
           <EventForm
             eventId={event._id}
             setIsFormOpen={setIsFormOpen}
-            price={10}
+            price={event.price || 10}
           />
         ) : (
           <Button onClick={() => setIsFormOpen(true)}> Book tickets</Button>
