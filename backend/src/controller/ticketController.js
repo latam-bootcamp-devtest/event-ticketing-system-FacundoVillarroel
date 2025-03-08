@@ -2,6 +2,11 @@ const Ticket = require("../model/ticketModel");
 const Event = require("../model/eventModel");
 
 const createTicket = async (req, res, next) => {
+  /* 
+    method description: Creates a ticket if events exist and decreases the amounts of seats available in the event
+    input variables:userId, eventId (request body)
+    return: new ticket created or an error message
+  */
   try {
     const { userId, eventId } = req.body;
     console.log("body", req.body);
@@ -30,6 +35,11 @@ const createTicket = async (req, res, next) => {
 };
 
 const deleteTicket = async (req, res, next) => {
+  /* 
+  method description: Deletes a tickets by its ID and increases the number of available seats in the event
+  input variables: ticketId (request path params)
+  return: status 204 empty or error message
+*/
   try {
     const { ticketId } = req.params;
     const ticket = await Ticket.findById(ticketId);
