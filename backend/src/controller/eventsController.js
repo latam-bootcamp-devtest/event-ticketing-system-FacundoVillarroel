@@ -16,7 +16,8 @@ const getEvents = async (req, res, next) => {
 ]  
 } */
   try {
-    const { page, pageSize } = req.query;
+    const page = parseInt(req.query.page);
+    const pageSize = parseInt(req.query.pageSize);
     const events = await Event.find();
     const eventsFiltered = events.filter(
       (event) => new Date(event.date) > new Date()
@@ -34,7 +35,12 @@ const getEvents = async (req, res, next) => {
     });
     //if page and pageSize are in the query then add pagination.
     if (page && pageSize) {
-      //missing logic for pagination
+      const newEventsList = eventsSorted.slice(
+        page * pageSize - pageSize,
+        page * pageSize
+      );
+      res.send(newEventsList);
+      return;
     }
     res.send(eventsSorted);
   } catch (error) {
