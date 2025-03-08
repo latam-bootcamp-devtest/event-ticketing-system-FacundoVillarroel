@@ -2,7 +2,10 @@ const Event = require("../model/eventModel");
 
 
 const getEvents = async (req, res, next) => {
-  /* return example: { 
+  /* 
+  method descripton: Get events from DB sort them by date, also filter old events
+  input variables: page (number) & pageSize (number) [as query parameters]
+  return example: { 
 “currentPage”: 1, 
 “pageSize”: 10, 
 “totalPages”: 3, 
@@ -63,6 +66,11 @@ const getEvents = async (req, res, next) => {
 };
 
 const getEventsById = async (req, res, next) => {
+  /*
+  method description: Get an event by its ID
+  input variables: eventId (path parameter)
+  return: returns the Event or an error message.
+   */
   try {
     const { eventId } = req.params;
     const eventFound = await Event.findById(eventId);
@@ -78,6 +86,11 @@ const getEventsById = async (req, res, next) => {
 };
 
 const createEvent = async (req, res, next) => {
+  /*
+    method description: creates an event
+    input variables: name, date, availableSeats (request body)
+    return: status 201 and newEvent or error message
+   */
   try {
     const { name, date, availableSeats } = req.body;
     const dateObj = new Date(date);
