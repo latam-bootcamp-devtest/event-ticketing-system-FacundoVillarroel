@@ -24,7 +24,7 @@ const EventDetails = ({ event }) => {
         <Text>Date: {new Date(event.date).toLocaleString()}</Text>
         <Text>Location: {event.location}</Text>
         <Text>Price: ${event.price || 10}</Text>
-        <Text>Available seats: ${event.availableSeats}</Text>
+        <Text>Available seats: {event.availableSeats}</Text>
         <hr></hr>
         {isFormOpen ? (
           <EventForm

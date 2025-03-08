@@ -32,6 +32,9 @@ const getEvents = async (req, res, next) => {
         return 1;
       }
     });
+    //if page and pageSize are in the query then add pagination.
+    if (page && pageSize) {
+    }
     res.send(eventsSorted);
   } catch (error) {
     console.error("Error getting events: ", error);
