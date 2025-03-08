@@ -27,4 +27,30 @@ const createTicket = async (req, res, next) => {
     res.status(500).send({ message: "Error creating ticket" });
   }
 };
-module.exports = { createTicket };
+
+const deleteTicket = async (req, res, next) => {
+  try {
+    const { ticketId } = req.params;
+    const ticket = await Ticket.findById(ticketId);
+    if (!ticket) {
+      res.status(404).send({ message: "Ticket not found" });
+      return;
+    }
+    const event = await Event.findById(ticket.eventId);
+    //check if the event is already passed
+    if (new Date(event.date) < new Date()) {
+      res.status(400).send({ message: "Cannot cancel past events" });
+      return;
+    }
+    event.availableSeats = parseInt(event.availableSeats) + 1;
+    await event.save();
+    await Ticket.findByIdAndDelete(ticketId);
+    res.status(204).send();
+  } catch (error) {
+    {
+      console.error("Error deleting ticket: ", error);
+      res.status(500).send({ message: "Error deleting ticket" });
+    }
+  }
+};
+module.exports = { createTicket, deleteTicket };
