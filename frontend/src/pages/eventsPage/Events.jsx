@@ -26,7 +26,7 @@ const Events = () => {
 
   return (
     <Container>
-      <h1>Event list</h1>
+      <h1>Upcoming events</h1>
       <EventsList events={events} />
     </Container>
   );

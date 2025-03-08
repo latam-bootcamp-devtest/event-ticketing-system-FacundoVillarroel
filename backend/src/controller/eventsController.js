@@ -21,6 +21,7 @@ const getEvents = async (req, res, next) => {
     const eventsFiltered = events.filter(
       (event) => new Date(event.date) > new Date()
     );
+
     const eventsSorted = eventsFiltered.sort((a, b) => {
       const dateA = new Date(a.date);
       const dateB = new Date(b.date);
