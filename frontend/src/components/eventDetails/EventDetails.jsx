@@ -23,10 +23,15 @@ const EventDetails = ({ event }) => {
         <Text>Event: {event.name}</Text>
         <Text>Date: {event.date}</Text>
         <Text>Location: {event.location}</Text>
-        <Text>Price: ${event.price}</Text>
+        <Text>Price: ${event.price || 10}</Text>
         <Text>Available seats: ${event.availableSeats}</Text>
+        <hr></hr>
         {isFormOpen ? (
-          <EventForm eventId={event._id} setIsFormOpen={setIsFormOpen} />
+          <EventForm
+            eventId={event._id}
+            setIsFormOpen={setIsFormOpen}
+            price={10}
+          />
         ) : (
           <Button onClick={() => setIsFormOpen(true)}> Book tickets</Button>
         )}
