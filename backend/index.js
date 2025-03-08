@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const connectDB = require("./src/config/db");
 const EventRouter = require("./src/routes/Events");
+const TicketRouter = require("./src/routes/Tickets");
 
 dotenv.config();
 
@@ -21,6 +22,8 @@ app.use((req, res, next) => {
 
 //routes
 app.use("/events", EventRouter);
+app.use("/tickets", TicketRouter);
+
 
 app.listen(PORT, () => {
   console.log("app listening on port:", PORT);
