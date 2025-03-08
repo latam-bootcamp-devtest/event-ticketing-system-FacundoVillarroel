@@ -1,7 +1,11 @@
-import "./App.css";
+import Events from "./pages/eventsPage/Events";
 
 function App() {
-  return <div></div>;
+  return (
+    <div>
+      <Events />
+    </div>
+  );
 }
 
 export default App;
