@@ -9,6 +9,7 @@ export const Container = styled.li`
   max-width: 200px;
   margin: 0px 40px;
   padding: 20px 10px;
+  cursor: pointer;
 `;
 
 export const ImageContainer = styled.img`

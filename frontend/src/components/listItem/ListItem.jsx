@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
 import {
   Container,
@@ -8,8 +9,14 @@ import {
 } from "./listItem.styles";
 
 const ListItem = ({ event }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/events/${event._id}`);
+  };
+
   return (
-    <Container>
+    <Container onClick={handleClick}>
       <ImageContainer
         alt="Event Image"
         src="https://images.pexels.com/photos/976866/pexels-photo-976866.jpeg?auto=compress&cs=tinysrgb&w=600"
