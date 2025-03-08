@@ -4,6 +4,7 @@ const cors = require("cors");
 const connectDB = require("./src/config/db");
 const EventRouter = require("./src/routes/Events");
 const TicketRouter = require("./src/routes/Tickets");
+const UsersRouter = require("./src/routes/Users");
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use(cors());
 //routes
 app.use("/events", EventRouter);
 app.use("/tickets", TicketRouter);
+app.use("/users", UsersRouter);
 
 
 app.listen(PORT, () => {
